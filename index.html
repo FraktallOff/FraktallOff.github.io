@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9 мая 1945 — День Победы</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --red: #c8102e;
+    --gold: #d4a017;
+    --cream: #f5f0e8;
+    --dark: #0e0b07;
+    --charcoal: #1a1510;
+    --smoke: #2e2820;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--dark);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 110%, rgba(200,16,46,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 20% 20%, rgba(212,160,23,0.08) 0%, transparent 60%);
+  }
+
+  /* Stars */
+  .stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .star {
+    position: absolute;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: twinkle var(--d, 3s) ease-in-out infinite var(--delay, 0s);
+    opacity: 0;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: var(--op, 0.7); transform: scale(1); }
+  }
+
+  /* Big star decoration */
+  .star-deco {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(40px, 8vw, 80px);
+    color: var(--gold);
+    text-shadow: 0 0 40px rgba(212,160,23,0.6);
+    animation: pulseGold 2.5s ease-in-out infinite;
+    letter-spacing: 0.5em;
+  }
+  @keyframes pulseGold {
+    0%, 100% { text-shadow: 0 0 30px rgba(212,160,23,0.5), 0 0 60px rgba(212,160,23,0.2); }
+    50% { text-shadow: 0 0 50px rgba(212,160,23,0.9), 0 0 100px rgba(212,160,23,0.4); }
+  }
+
+  .hero-date {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(14px, 2.5vw, 22px);
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 10vw, 130px);
+    font-weight: 900;
+    line-height: 0.9;
+    text-align: center;
+    color: var(--cream);
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-title em {
+    display: block;
+    font-style: italic;
+    color: var(--red);
+    font-size: 0.85em;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(16px, 2vw, 22px);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(245,240,232,0.6);
+    margin-top: 24px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
+    max-width: 600px;
+    padding: 0 24px;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.5s forwards;
+  }
+  .scroll-hint span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: rgba(245,240,232,0.4);
+  }
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, rgba(212,160,23,0.6), transparent);
+    animation: scrollLine 1.5s ease-in-out infinite 2s;
+  }
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
+    50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(14,11,7,0.9), transparent);
+    backdrop-filter: blur(4px);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: rgba(245,240,232,0.6);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ---- SECTION BASE ---- */
+  section {
+    padding: clamp(60px, 10vh, 120px) clamp(20px, 6vw, 80px);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    color: var(--red);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-label::after {
+    content: '';
+    height: 1px;
+    width: 60px;
+    background: var(--red);
+    opacity: 0.5;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 60px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 40px;
+  }
+
+  /* ---- EVENT SECTION ---- */
+  #sobytie {
+    border-top: 1px solid rgba(245,240,232,0.07);
+  }
+
+  .event-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  @media (max-width: 768px) {
+    .event-grid { grid-template-columns: 1fr; gap: 40px; }
+    nav { padding: 16px 20px; }
+    .nav-links { gap: 16px; }
+  }
+
+  .event-text p {
+    font-size: clamp(16px, 1.5vw, 19px);
+    line-height: 1.8;
+    color: rgba(245,240,232,0.85);
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+
+  .event-quote {
+    border-left: 3px solid var(--red);
+    padding: 20px 28px;
+    margin: 32px 0;
+    background: rgba(200,16,46,0.05);
+  }
+  .event-quote p {
+    font-style: italic;
+    font-size: clamp(18px, 2vw, 22px) !important;
+    color: rgba(245,240,232,0.9) !important;
+    line-height: 1.6 !important;
+  }
+  .event-quote cite {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    font-style: normal;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+  .img-block {
+    position: relative;
+  }
+  
+  /* ---- IMAGE WITH BACKGROUND CLASSES ---- */
+  .img-placeholder {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: var(--charcoal);
+    border: 1px solid rgba(212,160,23,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .has-bg {
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+  }
+  .has-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Тень снизу для читаемости текста */
+    background: linear-gradient(to top, rgba(14,11,7,0.95) 0%, transparent 50%);
+    z-index: 1;
+  }
+  .has-bg .img-icon, .has-bg .icon {
+    display: none; /* Скрываем эмодзи, если есть фон */
+  }
+  .has-bg .img-caption, .has-bg .cap {
+    position: relative;
+    z-index: 2;
+    margin-top: auto; /* Прижимаем текст вниз */
+    margin-bottom: 24px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  }
+
+  .img-placeholder:not(.has-bg)::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 30px,
+        rgba(212,160,23,0.02) 30px,
+        rgba(212,160,23,0.02) 31px
+      );
+  }
+  
+  .img-placeholder .img-icon {
+    font-size: 48px;
+    color: rgba(212,160,23,0.3);
+  }
+  .img-placeholder .img-caption {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    color: rgba(245,240,232,0.9);
+    text-align: center;
+    padding: 0 20px;
+  }
+  .img-label {
+    margin-top: 12px;
+    font-size: 12px;
+    font-style: italic;
+    color: rgba(245,240,232,0.4);
+    text-align: center;
+  }
+
+  /* ---- TIMELINE ---- */
+  #khronologiya {
+    background: var(--charcoal);
+    max-width: 100%;
+    padding: clamp(60px, 10vh, 120px) 0;
+  }
+  #khronologiya > .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 6vw, 80px);
+  }
+
+  .timeline {
+    position: relative;
+    margin-top: 60px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold) 10%, var(--gold) 90%, transparent);
+    opacity: 0.3;
+    transform: translateX(-50%);
+  }
+  @media (max-width: 768px) {
+    .timeline::before { left: 20px; }
+  }
+
+  .tl-item {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 0;
+    margin-bottom: 48px;
+    align-items: start;
+  }
+  @media (max-width: 768px) {
+    .tl-item {
+      grid-template-columns: 40px 1fr;
+      gap: 0 16px;
+    }
+    .tl-left { display: none; }
+    .tl-dot-col { grid-column: 1; }
+    .tl-right { grid-column: 2; }
+  }
+
+  .tl-left {
+    text-align: right;
+    padding-right: 30px;
+    padding-top: 4px;
+  }
+  .tl-right {
+    padding-left: 30px;
+    padding-top: 4px;
+  }
+  .tl-left.empty, .tl-right.empty { visibility: hidden; }
+
+  .tl-dot-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .tl-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 16px rgba(212,160,23,0.5);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .tl-date {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(20px, 2.5vw, 28px);
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+  }
+  .tl-event {
+    font-size: clamp(15px, 1.4vw, 17px);
+    font-weight: 300;
+    color: rgba(245,240,232,0.75);
+    line-height: 1.6;
+  }
+  .tl-event strong {
+    display: block;
+    font-weight: 400;
+    color: rgba(245,240,232,0.95);
+    margin-bottom: 4px;
+    font-size: 1.05em;
+  }
+
+  /* ---- SIGNIFICANCE ---- */
+  #znachenie {
+    border-top: 1px solid rgba(245,240,232,0.07);
+  }
+
+  .significance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2px;
+    margin-top: 40px;
+  }
+  .sig-card {
+    background: var(--charcoal);
+    padding: 36px 28px;
+    border-top: 2px solid transparent;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: default;
+  }
+  .sig-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+  }
+  .sig-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    color: rgba(200,16,46,0.15);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .sig-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--cream);
+  }
+  .sig-text {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.65);
+  }
+
+  /* ---- MEMORY STRIP ---- */
+  .memory-strip {
+    background: var(--red);
+    padding: 60px clamp(20px, 6vw, 80px);
+    text-align: center;
+  }
+  .memory-strip p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 4vw, 48px);
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    color: var(--cream);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ---- SOURCES ---- */
+  #istochniki {
+    border-top: 1px solid rgba(245,240,232,0.07);
+  }
+  .sources-list {
+    list-style: none;
+    margin-top: 32px;
+  }
+  .sources-list li {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.06);
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.65);
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+  }
+  .sources-list li::before {
+    content: counter(source);
+    counter-increment: source;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--gold);
+    min-width: 28px;
+  }
+  .sources-list { counter-reset: source; }
+  .sources-list a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(212,160,23,0.3);
+    transition: border-color 0.2s;
+  }
+  .sources-list a:hover { border-color: var(--gold); }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: var(--dark);
+    padding: 32px clamp(20px, 6vw, 80px);
+    border-top: 1px solid rgba(245,240,232,0.07);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer p {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: rgba(245,240,232,0.2);
+  }
+  .footer-stars {
+    color: var(--gold);
+    font-size: 16px;
+    letter-spacing: 0.3em;
+    opacity: 0.5;
+  }
+
+  /* ---- ILLUSTRATIONS ---- */
+  .illus-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+  @media (max-width: 600px) {
+    .illus-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .illus-item {
+    aspect-ratio: 3/4;
+    background: var(--charcoal);
+    border: 1px solid rgba(212,160,23,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .illus-item:hover { border-color: rgba(212,160,23,0.5); }
+  .illus-item .icon { font-size: 32px; opacity: 0.3; }
+  .illus-item .cap {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: rgba(245,240,232,0.9);
+    text-align: center;
+  }
+
+  /* Grain overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Страницы Памяти</div>
+  <ul class="nav-links">
+    <li><a href="#sobytie">Событие</a></li>
+    <li><a href="#khronologiya">Хронология</a></li>
+    <li><a href="#znachenie">Значение</a></li>
+    <li><a href="#istochniki">Источники</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="stars" id="starsContainer"></div>
+
+  <div class="star-deco">★ ★ ★</div>
+  <div class="hero-date">9 МАЯ 1945 ГОДА</div>
+  <h1 class="hero-title">
+    День<br>
+    <em>Победы</em>
+  </h1>
+  <p class="hero-subtitle">«Народ-победитель в войне, не виданной в истории человечества»</p>
+
+  <div class="scroll-hint">
+    <span>Листать</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<section id="sobytie">
+  <div class="section-label">01 — Событие</div>
+  <h2 class="section-title reveal">Капитуляция Германии<br>и конец войны</h2>
+
+  <div class="event-grid">
+    <div class="event-text reveal">
+      <p>
+        В ночь с 8 на 9 мая 1945 года в берлинском предместье Карлсхорст был подписан
+        окончательный Акт о безоговорочной капитуляции Германии. Война, унёсшая десятки миллионов
+        человеческих жизней, завершилась. Советский народ одержал Победу.
+      </p>
+      <div class="event-quote">
+        <p>«Наступил долгожданный день великой победы над Германией. Фашистская Германия
+        разгромлена...»</p>
+        <cite>— Из обращения И. В. Сталина к советскому народу, 9 мая 1945 г.</cite>
+      </div>
+      <p>
+        9 мая в Москве был дан праздничный салют — тридцать залпов из тысячи орудий.
+        Люди выходили на улицы, обнимали незнакомых, плакали и смеялись. Столица
+        страны была залита светом прожекторов и фейерверков — впервые за четыре года
+        без светомаскировки.
+      </p>
+      <p>
+        Четыре года войны стоили Советскому Союзу около 27 миллионов жизней.
+        Победа досталась невообразимой ценой — и именно поэтому она навсегда
+        вписана в сердце каждого, кто помнит.
+      </p>
+    </div>
+
+    <div class="img-block reveal">
+      <div class="img-placeholder has-bg" style="background-image: url('images/reichstag-flag.jpg');">
+        <div class="img-icon">🏴</div>
+        <div class="img-caption">Знамя Победы над Рейхстагом<br>30 апреля — 9 мая 1945 г.</div>
+      </div>
+      <p class="img-label">Знамя Победы. Фотохроника ТАСС, 1945 г.</p>
+
+      <div style="margin-top:20px">
+        <div class="img-placeholder has-bg" style="aspect-ratio:16/9; background-image: url('images/german-surrender.jpg');">
+          <div class="img-icon">📄</div>
+          <div class="img-caption">Акт о безоговорочной капитуляции Германии<br>8 мая 1945, Карлсхорст</div>
+        </div>
+        <p class="img-label">Подписание Акта о капитуляции. 8 мая 1945 г.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top: 0;">
+  <div class="section-label reveal">Иллюстрации</div>
+  <div class="illus-grid reveal">
+    <div class="illus-item has-bg" style="background-image: url('images/battle-of-berlin.png');">
+      <div class="icon">🗺️</div>
+      <div class="cap">Карта Берлинской операции<br>16 апр — 8 мая 1945</div>
+    </div>
+    <div class="illus-item has-bg" style="background-image: url('images/moscow-salute-stamp.jpg');">
+      <div class="icon">📸</div>
+      <div class="cap">«Москва салютует» К. Юона<br>марка СССР к 20-летию Победы, 1965</div>
+    </div>
+    <div class="illus-item has-bg" style="background-image: url('images/pravda-act-1945.jpg');">
+      <div class="icon">📰</div>
+      <div class="cap">«Правда», 9 мая 1945 г.<br>Акт о капитуляции Германии</div>
+    </div>
+    <div class="illus-item has-bg" style="background-image: url('images/medal-victory.jpg');">
+      <div class="icon">🎖️</div>
+      <div class="cap">Медаль «За победу<br>над Германией»</div>
+    </div>
+    <div class="illus-item has-bg" style="background-image: url('images/victory-parade-1945.jpg');">
+      <div class="icon">🚩</div>
+      <div class="cap">Парад Победы<br>Красная площадь, 24 июня 1945</div>
+    </div>
+    <div class="illus-item has-bg" style="background-image: url('images/brandenburg-1945.jpg');">
+      <div class="icon">🪖</div>
+      <div class="cap">Бранденбургские ворота<br>Берлин, 12 июля 1945 г.</div>
+    </div>
+  </div>
+</section>
+
+<div id="khronologiya">
+  <div class="inner">
+    <div class="section-label reveal">02 — Хронология</div>
+    <h2 class="section-title reveal">Последние дни войны</h2>
+
+    <div class="timeline">
+
+      <div class="tl-item reveal">
+        <div class="tl-left">
+          <div class="tl-date">16 апреля</div>
+        </div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-right">
+          <div class="tl-event">
+            <strong>Начало Берлинской наступательной операции</strong>
+            Советские войска под командованием маршалов Жукова, Конева и Рокоссовского начинают финальный штурм. В ночных прожекторах — свыше 140 прожекторных установок — ослепляют врага.
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-left">
+          <div class="tl-event" style="text-align:right">
+            <strong>Штурм Рейхстага</strong>
+            Советские бойцы Егоров и Кантария водружают Знамя Победы на куполе Рейхстага.
+          </div>
+        </div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-right">
+          <div class="tl-date">30 апреля</div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-left">
+          <div class="tl-date">2 мая</div>
+        </div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-right">
+          <div class="tl-event">
+            <strong>Берлинский гарнизон капитулирует</strong>
+            Остатки немецкой обороны сложили оружие. Берлин полностью в руках советских войск.
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-left">
+          <div class="tl-event" style="text-align:right">
+            <strong>Предварительный протокол о капитуляции</strong>
+            В Реймсе подписан предварительный документ о капитуляции — для Германии. СССР настаивает на полноценной церемонии.
+          </div>
+        </div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-right">
+          <div class="tl-date">7 мая</div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-left">
+          <div class="tl-date">8–9 мая</div>
+        </div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-right">
+          <div class="tl-event">
+            <strong>Подписание Акта о капитуляции в Карлсхорсте</strong>
+            В 0:43 по московскому времени 9 мая подписан окончательный акт. Маршал Жуков принимает капитуляцию от германской стороны.
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-left">
+          <div class="tl-event" style="text-align:right">
+            <strong>День Победы</strong>
+            В 2:10 по московскому времени Совинформбюро объявило о победе. В 6 утра — обращение Сталина к народу. В 22:00 — праздничный салют: 30 залпов из 1000 орудий.
+          </div>
+        </div>
+        <div class="tl-dot-col"><div class="tl-dot" style="background:var(--red); box-shadow: 0 0 20px rgba(200,16,46,0.7)"></div></div>
+        <div class="tl-right">
+          <div class="tl-date" style="color:var(--red)">9 мая 1945</div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-left">
+          <div class="tl-date">24 июня</div>
+        </div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-right">
+          <div class="tl-event">
+            <strong>Парад Победы на Красной площади</strong>
+            Торжественный марш войск-победителей. К подножию Мавзолея брошены 200 знамён поверженных немецких армий.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<section id="znachenie">
+  <div class="section-label reveal">03 — Значение</div>
+  <h2 class="section-title reveal">Почему мы помним</h2>
+
+  <div class="significance-grid">
+    <div class="sig-card reveal">
+      <div class="sig-num">27M</div>
+      <div class="sig-title">Человеческих жизней</div>
+      <div class="sig-text">Такова цена Победы для народов СССР. Это самые большие потери среди всех стран-участниц Второй мировой войны.</div>
+    </div>
+    <div class="sig-card reveal">
+      <div class="sig-num">4</div>
+      <div class="sig-title">Года войны</div>
+      <div class="sig-text">С 22 июня 1941 по 9 мая 1945 года — 1418 дней ожесточённых боёв, оккупации и сопротивления.</div>
+    </div>
+    <div class="sig-card reveal">
+      <div class="sig-num">12</div>
+      <div class="sig-title">Городов-героев</div>
+      <div class="sig-text">Москва, Ленинград, Сталинград, Севастополь и другие города, чей подвиг увековечен в высшем звании.</div>
+    </div>
+    <div class="sig-card reveal">
+      <div class="sig-num">∞</div>
+      <div class="sig-title">Память навсегда</div>
+      <div class="sig-text">9 мая стало символом торжества жизни над смертью, мира над войной. Этот день помнят и будут помнить поколения.</div>
+    </div>
+  </div>
+</section>
+
+<div class="memory-strip reveal">
+  <p>«Никто не забыт — ничто не забыто»</p>
+</div>
+
+<section id="istochniki">
+  <div class="section-label reveal">04 — Источники</div>
+  <h2 class="section-title reveal">Список источников</h2>
+  <ul class="sources-list reveal">
+    <li>
+      Акт о безоговорочной капитуляции Германии, 8 мая 1945 г. // Архив Министерства обороны Российской Федерации.
+    </li>
+    <li>
+      Великая Отечественная война 1941–1945: энциклопедия / гл. ред. М. М. Козлов. — М.: Советская энциклопедия, 1985.
+    </li>
+    <li>
+      Жуков Г. К. Воспоминания и размышления. — М.: АПН, 1969.
+    </li>
+    <li>
+      Берлинская наступательная операция (1945) // <a href="https://ru.wikipedia.org/wiki/Берлинская_наступательная_операция_(1945)" target="_blank" rel="noopener">Википедия</a>.
+    </li>
+    <li>
+      Материалы ОГАУК «Томский областной краеведческий музей им. М. Б. Шатилова» // <a href="https://tomskmuseum.ru/projects/Pvriv/" target="_blank" rel="noopener">tomskmuseum.ru</a>.
+    </li>
+    <li>
+      Всероссийский музей Великой Отечественной войны // <a href="https://www.poklonnayagora.ru" target="_blank" rel="noopener">poklonnayagora.ru</a>.
+    </li>
+  </ul>
+</section>
+
+<footer>
+  <p>Конкурс «Страницы памяти» · АНО ДО «Детский технопарк Кванториум» · 2026</p>
+  <div class="footer-stars">★ ★ ★ ★ ★</div>
+  <p>9 МАЯ 1945 — ДЕНЬ ПОБЕДЫ</p>
+</footer>
+
+<script>
+// Generate stars
+const container = document.getElementById('starsContainer');
+for (let i = 0; i < 80; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = Math.random() * 2.5 + 0.5;
+  s.style.cssText = `
+    width: ${size}px;
+    height: ${size}px;
+    left: ${Math.random() * 100}%;
+    top: ${Math.random() * 100}%;
+    --d: ${2 + Math.random() * 4}s;
+    --delay: ${Math.random() * 5}s;
+    --op: ${0.3 + Math.random() * 0.7};
+  `;
+  container.appendChild(s);
+}
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(r => io.observe(r));
+</script>
+</body>
+</html>
